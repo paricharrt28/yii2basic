@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'ระบบสารสนเทศสุขภาพ',
+    'name' => 'ระบบลงทะเบียนออนไลน์',
     'basePath' => dirname(__DIR__),
     'language' => 'th-TH',
     'bootstrap' => ['log'],
@@ -63,7 +63,7 @@ $config = [
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => true,
+            'showScriptName' => false,
             'rules' => [
             ],
         ],

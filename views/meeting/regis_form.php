@@ -3,12 +3,15 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
-<?= $data['meeting_list_name'] ?>
+<h2><?= $data['meeting_list_name'] ?></h2>
 <?php $form = ActiveForm::begin();
 ?>
-<?php echo $form->field($model, 'meeting_register_id')->textInput() ?>
+<?php echo $form->field($model2, 'meeting_register_cid')->textInput() ?>
+<?php echo $form->field($model2, 'meeting_register_name')->textInput() ?>
+<?php echo $form->field($model2, 'meeting_register_hospcode')->textInput() ?>
+
 <div class="form-group">
-    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('บันทึก', ['class' => 'btn btn-danger']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

@@ -14,6 +14,9 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ],
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
@@ -69,7 +72,6 @@ $config = [
         ],
     ],
     'as access' => [
-        //'class' => 'mdm\admin\classes\AccessControl',
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'user/security/*',

@@ -28,7 +28,7 @@ class MeetingRegis extends \yii\db\ActiveRecord {
             [['meeting_register_id', 'meeting_list_id', 'meeting_regis_date'], 'required'],
             [['meeting_register_id', 'meeting_list_id'], 'integer'],
             [['meeting_regis_date'], 'safe'],
-            [['meeting_register_id', 'meeting_list_id'], 'unique', 'message' => 'คุณได้ลงทะเบียนรายงานไปแล้ว']
+                #[['meeting_register_id', 'meeting_list_id'], 'unique', 'message' => 'คุณได้ลงทะเบียนรายงานไปแล้ว']
         ];
     }
 
@@ -39,8 +39,16 @@ class MeetingRegis extends \yii\db\ActiveRecord {
         return [
             'meeting_register_id' => 'Meeting Register ID',
             'meeting_list_id' => 'Meeting List ID',
-            'meeting_regis_date' => 'Meeting Regis Date',
+            'meeting_regis_date' => 'วันที่ลงทะเบียน',
         ];
+    }
+
+    public function getRegister() {
+        return $this->hasOne(MeetingRegister::className(), ['meeting_register_id' => 'meeting_register_id']);
+    }
+
+    public function getList() {
+        return $this->hasOne(MeetingList::className(), ['meeting_list_id' => 'meeting_list_id']);
     }
 
 }

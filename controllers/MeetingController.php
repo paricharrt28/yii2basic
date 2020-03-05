@@ -7,6 +7,8 @@ use yii\web\Controller;
 use app\models\MeetingList;
 use app\models\MeetingRegis;
 use app\models\MeetingRegister;
+use yii\data\ActiveDataProvider;
+use app\components\ClineBot;
 
 class MeetingController extends Controller {
 
@@ -18,6 +20,7 @@ class MeetingController extends Controller {
     }
 
     public function actionRegis($id) {
+
         //ดึงข้อมูลหัวข้อประชุม
         $data = MeetingList::find()
                 ->where(['meeting_list_id' => $id])
@@ -34,11 +37,31 @@ class MeetingController extends Controller {
             $model->meeting_list_id = $id;
             $model->meeting_regis_date = date('Y-m-d H:i:s');
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->save()) {
+                //แจ้ง Line
+                $message = 'คุณ' . $model2->meeting_register_name . ' ลงทะเบียน' . $data['meeting_list_name'];
+                ClineBot::send($message);
                 return $this->redirect(['index']);
             }
         }
         return $this->render('regis_form', ['model2' => $model2, 'model' => $model, 'data' => $data]);
+    }
+
+    public function actionRegislist($id) {
+        $model = MeetingRegis::find()
+                ->where(['meeting_regis.meeting_list_id' => $id])
+                ->joinWith(['register', 'list']);
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => 1,
+            ],
+            'query' => $model,
+        ]);
+
+        return $this->render('regislist', [
+                    'dataProvider' => $dataProvider
+        ]);
     }
 
 }

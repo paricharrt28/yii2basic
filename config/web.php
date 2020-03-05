@@ -14,6 +14,9 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
+        'rgt' => [
+            'class' => 'app\modules\rgt\Module',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],

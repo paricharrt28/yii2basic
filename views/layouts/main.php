@@ -3,11 +3,12 @@
 /* @var $content string */
 
 use yii\bootstrap4\Alert;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use yii\widgets\Breadcrumbs;
+use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\ArrayHelper;
 
 AppAsset::register($this);
 ?>
@@ -31,16 +32,17 @@ AppAsset::register($this);
                 'brandLabel' => Yii::$app->name,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar navbar-expand navbar-dark bg-primary',
+                    'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
                 ],
+                'innerContainerOptions' => ['class' => 'container-fluid'],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right ml-auto'],
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'ลงทะเบียน', 'url' => ['/meeting']],
-                    ['label' => 'จัดการหัวข้อประชุม', 'url' => ['/meetinglist']],
-                    ['label' => 'จัดการผู้เข้าประชุม', 'url' => ['/meetingregister']],
+                    ['label' => 'ลงทะเบียน', 'url' => ['/rgt/meeting']],
+                    ['label' => 'จัดการหัวข้อประชุม', 'url' => ['/rgt/meetinglist']],
+                    ['label' => 'จัดการผู้เข้าประชุม', 'url' => ['/rgt/meetingregister']],
                     ['label' => 'Basic', 'url' => ['/basic/index']],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/user/security/login']]
@@ -64,7 +66,14 @@ AppAsset::register($this);
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ])
                 ?>
-                <?= Alert::widget() ?>
+                <?php if (Yii::$app->session->hasFlash('alert')): ?>
+                    <?=
+                    Alert::widget([
+                        'body' => ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'body'),
+                        'options' => ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'options'),
+                    ])
+                    ?>
+                <?php endif; ?>
                 <?= $content ?>
             </div>
         </div>

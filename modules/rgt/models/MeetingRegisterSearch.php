@@ -1,21 +1,20 @@
 <?php
 
-namespace app\models;
+namespace app\modules\rgt\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MeetingRegister;
+use app\modules\rgt\models\MeetingRegister;
 
 /**
  * MeetingRegisterSearch represents the model behind the search form of `app\models\MeetingRegister`.
  */
-class MeetingRegisterSearch extends MeetingRegister
-{
+class MeetingRegisterSearch extends MeetingRegister {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['meeting_register_id', 'meeting_register_name', 'meeting_register_active'], 'integer'],
             [['meeting_register_cid', 'meeting_register_date', 'meeting_register_hospcode'], 'safe'],
@@ -25,8 +24,7 @@ class MeetingRegisterSearch extends MeetingRegister
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class MeetingRegisterSearch extends MeetingRegister
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = MeetingRegister::find();
 
         // add conditions that should always apply here
@@ -65,8 +62,9 @@ class MeetingRegisterSearch extends MeetingRegister
         ]);
 
         $query->andFilterWhere(['like', 'meeting_register_cid', $this->meeting_register_cid])
-            ->andFilterWhere(['like', 'meeting_register_hospcode', $this->meeting_register_hospcode]);
+                ->andFilterWhere(['like', 'meeting_register_hospcode', $this->meeting_register_hospcode]);
 
         return $dataProvider;
     }
+
 }

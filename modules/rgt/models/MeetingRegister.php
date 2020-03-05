@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\rgt\models;
 
 use Yii;
 
@@ -32,7 +32,7 @@ class MeetingRegister extends \yii\db\ActiveRecord {
             [['meeting_register_active'], 'integer'],
             [['meeting_register_name'], 'string', 'max' => 100],
             [['meeting_register_date'], 'safe'],
-            [['meeting_register_cid'], 'string', 'max' => 13],
+            [['meeting_register_cid'], 'string', 'length' => 13, 'skipOnEmpty' => false],
             [['meeting_register_hospcode'], 'string', 'max' => 5],
             [['meeting_register_cid'], 'unique'],
         ];

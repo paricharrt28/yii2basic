@@ -1,12 +1,12 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\rgt\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\MeetingList;
-use app\models\MeetingRegis;
-use app\models\MeetingRegister;
+use app\modules\rgt\models\MeetingList;
+use app\modules\rgt\models\MeetingRegis;
+use app\modules\rgt\models\MeetingRegister;
 use yii\data\ActiveDataProvider;
 use app\components\ClineBot;
 
@@ -38,10 +38,21 @@ class MeetingController extends Controller {
             $model->meeting_regis_date = date('Y-m-d H:i:s');
 
             if ($model->save()) {
+                //แจ้งเตือนการบันทึก
+                Yii::$app->getSession()->setFlash('alert', [
+                    'body' => 'บันทึกข้อมูลสำเร็จ..',
+                    'options' => ['class' => 'alert-success']
+                ]);
                 //แจ้ง Line
                 $message = 'คุณ' . $model2->meeting_register_name . ' ลงทะเบียน' . $data['meeting_list_name'];
                 ClineBot::send($message);
                 return $this->redirect(['index']);
+            } else {
+                //แจ้งเตือนการบันทึก
+                Yii::$app->getSession()->setFlash('alert', [
+                    'body' => 'บันทึกข้อมูลไม่สำเร็จ..',
+                    'options' => ['class' => 'alert-danger']
+                ]);
             }
         }
         return $this->render('regis_form', ['model2' => $model2, 'model' => $model, 'data' => $data]);
@@ -54,7 +65,7 @@ class MeetingController extends Controller {
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => 20,
             ],
             'query' => $model,
         ]);
@@ -62,6 +73,25 @@ class MeetingController extends Controller {
         return $this->render('regislist', [
                     'dataProvider' => $dataProvider
         ]);
+    }
+
+    public function actionHosList($q = null, $id = null) {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = new yii\db\Query;
+            $query->select([
+                        'id' => 'hoscode',
+                        'text' => 'concat(hoscode," ",hosname)',
+                    ])
+                    ->from('chospital')
+                    ->where(['like', 'concat(hoscode," ",hosname)', $q])
+                    ->limit(5);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        }
+        return $out;
     }
 
 }

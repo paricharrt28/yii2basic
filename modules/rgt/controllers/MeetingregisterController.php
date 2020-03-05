@@ -1,24 +1,23 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\rgt\controllers;
 
 use Yii;
-use app\models\MeetingList;
-use app\models\MeetingListSearch;
+use app\modules\rgt\models\MeetingRegister;
+use app\modules\rgt\models\MeetingRegisterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MeetinglistController implements the CRUD actions for MeetingList model.
+ * MeetingregisterController implements the CRUD actions for MeetingRegister model.
  */
-class MeetinglistController extends Controller
-{
+class MeetingregisterController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -30,98 +29,93 @@ class MeetinglistController extends Controller
     }
 
     /**
-     * Lists all MeetingList models.
+     * Lists all MeetingRegister models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new MeetingListSearch();
+    public function actionIndex() {
+        $searchModel = new MeetingRegisterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single MeetingList model.
+     * Displays a single MeetingRegister model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new MeetingList model.
+     * Creates a new MeetingRegister model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new MeetingList();
+    public function actionCreate() {
+        $model = new MeetingRegister();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->meeting_list_id]);
+            return $this->redirect(['view', 'id' => $model->meeting_register_id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing MeetingList model.
+     * Updates an existing MeetingRegister model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->meeting_list_id]);
+            return $this->redirect(['view', 'id' => $model->meeting_register_id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing MeetingList model.
+     * Deletes an existing MeetingRegister model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the MeetingList model based on its primary key value.
+     * Finds the MeetingRegister model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MeetingList the loaded model
+     * @return MeetingRegister the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = MeetingList::findOne($id)) !== null) {
+    protected function findModel($id) {
+        if (($model = MeetingRegister::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

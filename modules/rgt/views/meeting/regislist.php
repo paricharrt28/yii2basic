@@ -18,19 +18,24 @@ $js = <<<JS
 JS;
 $this->registerJs($js, $this::POS_READY);
 
-echo Html::button('Click', ['id' => 'bb']);
-
 Pjax::begin(['id' => 'pjaxGridview01']);
-echo date('H:i:s');
+//echo date('H:i:s');
 echo GridView::widget([
-    'beforeHeader' => [
-        [
-            'columns' => [
-                ['content' => '', 'options' => ['colspan' => 3, 'class' => 'text-center warning']],
-                ['content' => 'ข้อมูลทั่วไป', 'options' => ['colspan' => 6, 'class' => 'text-center warning']],
-            ],
-        ]
-    ],
+    'bordered' => false,
+    'striped' => true,
+    'condensed' => true,
+    'responsiveWrap' => false,
+    /*
+      'beforeHeader' => [
+      [
+      'columns' => [
+      ['content' => '', 'options' => ['colspan' => 3, 'class' => 'text-center warning']],
+      ['content' => 'ข้อมูลทั่วไป', 'options' => ['colspan' => 6, 'class' => 'text-center warning']],
+      ],
+      ]
+      ],
+     *
+     */
     'showPageSummary' => true,
     'toolbar' => [
         '{export}',
@@ -38,7 +43,7 @@ echo GridView::widget([
     ],
     'panel' => [
         'type' => 'primary',
-        'heading' => '',
+        'heading' => 'รายชื่อผู้เข้าอบรม',
     ],
     'dataProvider' => $dataProvider,
     'columns' => [

@@ -1,21 +1,20 @@
 <?php
 
-namespace app\models;
+namespace app\modules\rgt\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MeetingList;
+use app\modules\rgt\models\MeetingList;
 
 /**
  * MeetingListSearch represents the model behind the search form of `app\models\MeetingList`.
  */
-class MeetingListSearch extends MeetingList
-{
+class MeetingListSearch extends MeetingList {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['meeting_list_id', 'meeting_list_active'], 'integer'],
             [['meeting_list_name', 'meeting_list_detail'], 'safe'],
@@ -25,8 +24,7 @@ class MeetingListSearch extends MeetingList
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class MeetingListSearch extends MeetingList
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = MeetingList::find();
 
         // add conditions that should always apply here
@@ -63,8 +60,9 @@ class MeetingListSearch extends MeetingList
         ]);
 
         $query->andFilterWhere(['like', 'meeting_list_name', $this->meeting_list_name])
-            ->andFilterWhere(['like', 'meeting_list_detail', $this->meeting_list_detail]);
+                ->andFilterWhere(['like', 'meeting_list_detail', $this->meeting_list_detail]);
 
         return $dataProvider;
     }
+
 }

@@ -10,7 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\ArrayHelper;
 
-AppAsset::register($this);
+$theme = AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,6 +22,9 @@ AppAsset::register($this);
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        <style>
+            *{font-family: '<?= $theme->fontStyle ?>' !important;}
+        </style>
     </head>
     <body>
         <?php $this->beginBody() ?>

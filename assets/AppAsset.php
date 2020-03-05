@@ -18,11 +18,14 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle {
 
+    public $fontStyle = 'Sarabun';
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
         'css/bootstrap.min.css',
+        '//use.fontawesome.com/releases/v5.7.2/css/all.css',
+        '//fonts.googleapis.com/css?family=Sarabun&display=swap',
     ];
     public $js = [
     ];

@@ -33,7 +33,7 @@ $theme = AppAsset::register($this);
         <div class="wrap">
             <?php
             NavBar::begin([
-                'brandLabel' => Yii::$app->name,
+                'brandLabel' => Html::img('https://www.aucegypt.edu/sites/default/files/inline-images/Register.png', ['height' => 32]) . ' ' . Yii::$app->name,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
@@ -47,7 +47,10 @@ $theme = AppAsset::register($this);
                 'items' => [
                     ['label' => 'หน้าแรก', 'active' => true, 'url' => ['/site/index'],],
                     ['label' => 'ลงทะเบียน', 'url' => ['/rgt/meeting']],
-                    ['label' => 'รายงาน', 'url' => ['/rgt/report']],
+                    ['label' => 'รายงาน', 'items' => [
+                            ['label' => 'สรุปตามหัวข้อประชุม', 'url' => ['/rgt/report']],
+                            ['label' => 'สรุปตามหัวข้อประชุมและหน่วยงาน', 'url' => ['/rgt/report/summary']],
+                        ]],
                     ['label' => 'จัดการ', 'visible' => Yii::$app->user->can('Administrator'), 'items' => [
                             ['label' => 'จัดการหัวข้อประชุม', 'url' => ['/rgt/meetinglist']],
                             ['label' => 'จัดการผู้เข้าประชุม', 'url' => ['/rgt/meetingregister']],
@@ -72,7 +75,8 @@ $theme = AppAsset::register($this);
             NavBar::end();
             ?>
 
-            <div class="container">
+            <div class="container-fluid">
+                <div class="divider p-2"></div>
                 <?=
                 Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

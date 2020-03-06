@@ -4,6 +4,15 @@ use yii\bootstrap4\Html;
 use kartik\grid\GridView;
 
 echo GridView::widget([
+    'responsiveWrap' => false,
+    'toolbar' => [
+    //'{export}',
+    //'{toggleData}'
+    ],
+    'panel' => [
+        'type' => 'primary',
+        'heading' => 'หัวข้อการประชุม',
+    ],
     'dataProvider' => $dataProvider,
     'columns' => [
         [

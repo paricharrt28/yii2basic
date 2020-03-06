@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'meeting_list_detail')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'meeting_list_active')->textInput() ?>
+    <?= $form->field($model, 'meeting_list_limit')->textInput(['type' => 'number']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -28,7 +28,7 @@ class MeetingList extends \yii\db\ActiveRecord {
         return [
             [['meeting_list_name', 'meeting_list_detail'], 'required'],
             [['meeting_list_detail'], 'string'],
-            [['meeting_list_active'], 'integer'],
+            [['meeting_list_active', 'meeting_list_limit'], 'integer'],
             [['meeting_list_name'], 'string', 'max' => 200],
         ];
     }
@@ -42,6 +42,7 @@ class MeetingList extends \yii\db\ActiveRecord {
             'meeting_list_name' => 'หัวข้อการประชุม',
             'meeting_list_detail' => 'รายละเอียด',
             'meeting_list_active' => 'สถานะ',
+            'meeting_list_limit' => 'จำนวนเป้าหมาย',
         ];
     }
 

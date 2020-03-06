@@ -2,6 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use kartik\nav\NavX;
 use yii\bootstrap4\Alert;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
@@ -23,7 +24,7 @@ $theme = AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
         <style>
-            *{font-family: '<?= $theme->fontStyle ?>' !important;}
+            *{font-family: '<?= $theme->fontStyle ?>' }//!important;
         </style>
     </head>
     <body>
@@ -39,24 +40,32 @@ $theme = AppAsset::register($this);
                 ],
                 'innerContainerOptions' => ['class' => 'container-fluid'],
             ]);
-            echo Nav::widget([
+            echo NavX::widget([
                 'options' => ['class' => 'navbar-nav navbar-right ml-auto'],
+                'activateParents' => true,
+                'encodeLabels' => false,
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
+                    ['label' => 'หน้าแรก', 'active' => true, 'url' => ['/site/index'],],
                     ['label' => 'ลงทะเบียน', 'url' => ['/rgt/meeting']],
-                    ['label' => 'จัดการหัวข้อประชุม', 'url' => ['/rgt/meetinglist']],
-                    ['label' => 'จัดการผู้เข้าประชุม', 'url' => ['/rgt/meetingregister']],
-                    ['label' => 'Basic', 'url' => ['/basic/index']],
+                    ['label' => 'รายงาน', 'url' => ['/rgt/report']],
+                    ['label' => 'จัดการ', 'visible' => Yii::$app->user->can('Administrator'), 'items' => [
+                            ['label' => 'จัดการหัวข้อประชุม', 'url' => ['/rgt/meetinglist']],
+                            ['label' => 'จัดการผู้เข้าประชุม', 'url' => ['/rgt/meetingregister']],
+                        ]],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/user/security/login']]
                             ) : (
-                            '<li>'
-                            . Html::beginForm(['/user/security/logout'], 'post')
-                            . Html::submitButton(
-                                    'Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']
-                            )
-                            . Html::endForm()
-                            . '</li>'
+                            ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'items' => [
+                                    ['label' => 'แก้ไขข้อมูลส่วนตัว', 'url' => ['/user/settings/profile'],],
+                                    ['label' => 'เปลี่ยนรหัสผ่าน', 'url' => ['/user/settings/account'], 'visible' => Yii::$app->user->can('Administrator')],
+                                    '<div class="dropdown-divider"></div>',
+                                    '<div class="dropdown-item">'
+                                    . Html::beginForm(['/user/security/logout'], 'post')
+                                    . Html::submitButton(
+                                            'ออกจากระบบ', ['class' => 'btn btn-success logout']
+                                    )
+                                    . Html::endForm()
+                                    . '</div>']]
                             )
                 ],
             ]);

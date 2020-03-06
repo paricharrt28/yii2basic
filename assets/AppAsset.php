@@ -24,8 +24,8 @@ class AppAsset extends AssetBundle {
     public $css = [
         'css/site.css',
         'css/bootstrap.min.css',
-        '//use.fontawesome.com/releases/v5.7.2/css/all.css',
         '//fonts.googleapis.com/css?family=Sarabun&display=swap',
+        '//use.fontawesome.com/releases/v5.7.2/css/all.css',
     ];
     public $js = [
     ];

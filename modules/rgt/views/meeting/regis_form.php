@@ -8,7 +8,7 @@ use yii\web\JsExpression;
 ?>
 
 <div class="alert alert-dismissible alert-primary">
-    <h1 class="display-3"><?= $data['meeting_list_name'] ?></h1><strong>อบรมหัวข้อ</strong>
+    <h1 class="display-5"><?= $data['meeting_list_name'] ?></h1><strong><?= $data['meeting_list_detail'] ?></strong>
 </div>
 <?php
 $form = ActiveForm::begin([

@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'meeting_list_id',
             'meeting_list_name',
             'meeting_list_detail:ntext',
-            'meeting_list_active',
+            'meeting_list_limit',
             ['class' => 'kartik\grid\ActionColumn'],
         ],
     ]);

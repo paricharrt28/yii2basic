@@ -13,10 +13,16 @@ use app\components\ClineBot;
 class MeetingController extends Controller {
 
     public function actionIndex() {
-        $model = MeetingList::find()
-                ->asArray()
-                ->all();
-        return $this->render('index', ['model' => $model]);
+        $model = MeetingList::find();
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            'query' => $model,
+        ]);
+        return $this->render('index', [
+                    'dataProvider' => $dataProvider
+        ]);
     }
 
     public function actionRegis($id) {
@@ -92,6 +98,15 @@ class MeetingController extends Controller {
             $out['results'] = array_values($data);
         }
         return $out;
+    }
+
+    public function actionDelete($meeting_register_id, $meeting_list_id) {
+        MeetingRegis::findOne($meeting_register_id, $meeting_list_id)->delete();
+        Yii::$app->getSession()->setFlash('alert', [
+            'body' => 'ลบข้อมูลสำเร็จ..',
+            'options' => ['class' => 'alert-success']
+        ]);
+        return $this->redirect(['index']);
     }
 
 }

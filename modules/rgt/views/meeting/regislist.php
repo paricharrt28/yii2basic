@@ -94,7 +94,8 @@ echo GridView::widget([
             'value' => function($data) {
                 return Html::img('http://nrefer.moph.go.th/images/moph.png', ['height' => 24]);
             },
-        ]
+        ],
+        ['class' => 'kartik\grid\ActionColumn'],
     ]
 ]);
 Pjax::end();
